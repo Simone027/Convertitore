@@ -45,7 +45,7 @@ Completa di *Easter Eggs* segreti e **temi personalizzabili**!
 **Cambio emoji titolo:**
 
 - Clicca 5 volte sull'emoji 🧮 per sbloccare nuove emoji  
-- Effetto **confetti** al cambio emoji
+- Effetto al cambio emoji
 
 **Unità assurde:**
 
