@@ -57,10 +57,9 @@ Completa di *Easter Eggs* segreti e **temi personalizzabili**!
 - Scrivi `"doge"` nel campo valore  
 - Appare il famoso meme: *"such convert! very wow!"*
 
-**Rick Roll:**
+**Sorpresa**
 
-- Inserisci il numero `1987`  
-- Vieni **rick-rollato** con GIF animata e audio!
+- Inserisci il numero `1987` per una sorpresa con GIF animata e audio!
 
 ---
 
