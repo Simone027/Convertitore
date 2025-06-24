@@ -1331,6 +1331,9 @@
         </div>
     </div>
     
+    <!-- Audio per Ronaldo -->
+    <audio id="ronaldoAudio" src="https://simone027.github.io/Convertitore/suii-by-cristiano-ronaldo.mp3" preload="auto"></audio>
+    
     <div class="container">
         <!-- Card per titolo e descrizione -->
         <div class="header-card">
@@ -1436,6 +1439,11 @@
                 <div class="number-grid">
                     <div class="number-badge">42</div>
                     <div class="number-badge">1337</div>
+                    <div class="number-badge">69</div>
+                    <div class="number-badge">420</div>
+                    <div class="number-badge">888</div>
+                    <div class="number-badge">7</div>
+                    <div class="number-badge">104</div>
                     <div class="number-badge">80085</div>
                     <div class="number-badge">12345</div>
                     <div class="number-badge">1984</div>
@@ -1706,6 +1714,7 @@
         const closeVideoBtn = document.getElementById('closeVideoBtn');
         const rickGif = document.getElementById('rickGif');
         const rickAudio = document.getElementById('rickAudio');
+        const ronaldoAudio = document.getElementById('ronaldoAudio');
 
         // Easter Eggs Flags
         let konamiActive = false;
@@ -2026,6 +2035,31 @@
                     color: "#ffd166",
                     bg: "#fff9e6"
                 },
+                '69': { 
+                    message: "Nice! ( ͡° ͜ʖ ͡°)",
+                    color: "#FF69B4",
+                    bg: "#FFF0F5"
+                },
+                '420': { 
+                    message: "Blaze it! 🌿",
+                    color: "#228B22",
+                    bg: "#F0FFF0"
+                },
+                '888': { 
+                    message: "Jackpot! 🎰",
+                    color: "#FFD700",
+                    bg: "#FFFACD"
+                },
+                '7': { 
+                    message: "Siuuuu! ⚽",
+                    color: "#C0C0C0",
+                    bg: "#F8F8FF"
+                },
+                '104': { 
+                    message: "Invalidità! 🚑",
+                    color: "#8B0000",
+                    bg: "#FFE4E1"
+                },
                 '80085': { 
                     message: "Boobs! (͡° ͜ʖ ͡°)",
                     color: "#ef476f",
@@ -2096,6 +2130,14 @@
                         <div class="special-message-content" style="color: ${color};">${message}</div>
                     </div>
                 `;
+                
+                // Se è il numero 7, riproduci il suono di Ronaldo
+                if (value === 7) {
+                    ronaldoAudio.play().catch(error => {
+                        console.log("Errore nella riproduzione audio:", error);
+                    });
+                }
+                
                 return true;
             }
             
