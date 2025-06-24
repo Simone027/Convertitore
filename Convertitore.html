@@ -1334,6 +1334,9 @@
     <!-- Audio per Ronaldo -->
     <audio id="ronaldoAudio" src="https://simone027.github.io/Convertitore/suii-by-cristiano-ronaldo.mp3" preload="auto"></audio>
     
+    <!-- Audio per slot machine -->
+    <audio id="slotAudio" src="https://simone027.github.io/Convertitore/slot-machine-payout.mp3" preload="auto"></audio>
+    
     <div class="container">
         <!-- Card per titolo e descrizione -->
         <div class="header-card">
@@ -1715,6 +1718,7 @@
         const rickGif = document.getElementById('rickGif');
         const rickAudio = document.getElementById('rickAudio');
         const ronaldoAudio = document.getElementById('ronaldoAudio');
+        const slotAudio = document.getElementById('slotAudio');
 
         // Easter Eggs Flags
         let konamiActive = false;
@@ -2134,6 +2138,13 @@
                 // Se è il numero 7, riproduci il suono di Ronaldo
                 if (value === 7) {
                     ronaldoAudio.play().catch(error => {
+                        console.log("Errore nella riproduzione audio:", error);
+                    });
+                }
+                
+                // Se è il numero 888, riproduci il suono della slot machine
+                if (value === 888) {
+                    slotAudio.play().catch(error => {
                         console.log("Errore nella riproduzione audio:", error);
                     });
                 }
