@@ -1,0 +1,2365 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertitore Universale con Easter Eggs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --danger: #ef476f;
+            --gray: #6c757d;
+            --border-radius: 16px;
+            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+            transition: background 1s ease;
+        }
+        
+        /* TEMA SCURO */
+        .dark-mode {
+            background: linear-gradient(135deg, #121212, #2c3e50) !important;
+            color: #fff;
+        }
+        
+        /* TEMA SUPER MARIO MIGLIORATO */
+        .super-mario-theme {
+            --primary: #E52521; /* Rosso Mario */
+            --secondary: #39B54A; /* Verde Luigi */
+            --accent: #00A8E8; /* Blu cielo */
+            --success: #4CAF50; /* Verde */
+            background: linear-gradient(135deg, #e6f7ff, #e6ffe6) !important; /* Azzurro chiaro a verde chiaro */
+            color: #2a1a00; /* Testo scuro per leggibilità */
+        }
+        
+        .dark-mode.super-mario-theme {
+            --primary: #FF6B6B; /* Rosso più luminoso */
+            --secondary: #66FF66; /* Verde più luminoso */
+            --accent: #29B6F6; /* Blu più luminoso */
+            --success: #66BB6A; /* Verde più luminoso */
+            background: linear-gradient(135deg, #0a1f2f, #0a2f1f) !important; /* Blu scuro a verde scuro */
+            color: #f0f0f0; /* Testo chiaro per leggibilità */
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+        
+        .dark-mode .container {
+            background: rgba(30, 30, 30, 0.95);
+            color: #fff;
+        }
+        
+        .super-mario-theme .container {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .dark-mode.super-mario-theme .container {
+            background: rgba(40, 40, 40, 0.95);
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+        }
+        
+        .header-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 25px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .dark-mode .header-card {
+            background: rgba(40, 40, 40, 0.8);
+        }
+        
+        .super-mario-theme .header-card {
+            background: linear-gradient(135deg, #FF6B6B, #39B54A); /* Rosso a verde */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        
+        .dark-mode.super-mario-theme .header-card {
+            background: linear-gradient(135deg, #8a0303, #005000); /* Rosso scuro a verde scuro */
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            color: var(--dark);
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dark-mode h1 {
+            color: #ffffff;
+            -webkit-text-fill-color: #ffffff;
+            background: none;
+        }
+        
+        .super-mario-theme h1 {
+            background: linear-gradient(90deg, #E52521, #39B54A); /* Rosso a verde */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* CORREZIONE: TESTO IN MODALITÀ CHIARA DEL TEMA SUPER MARIO */
+        .super-mario-theme:not(.dark-mode) h1 {
+            background: none;
+            -webkit-text-fill-color: #2a1a00;
+            color: #2a1a00;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+        }
+        
+        .logo-container {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .logo-emoji {
+            font-size: 3.5rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        .logo-emoji:hover {
+            transform: scale(1.1);
+        }
+        
+        .description {
+            color: var(--gray);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .dark-mode .description {
+            color: #ccc;
+        }
+        
+        .super-mario-theme .description {
+            color: #2a1a00; /* Testo scuro per leggibilità */
+            font-weight: 500;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+        }
+        
+        .dark-mode.super-mario-theme .description {
+            color: #ffd166;
+        }
+        
+        .converter-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dark-mode .converter-card {
+            background: rgba(40, 40, 40, 0.8);
+        }
+        
+        .super-mario-theme .converter-card {
+            background: linear-gradient(135deg, #fff9c4, #c8e6c9); /* Giallo chiaro a verde chiaro */
+            border: 2px solid #E52521;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark-mode.super-mario-theme .converter-card {
+            background: linear-gradient(135deg, #2a1a00, #0a2f1f); /* Marrone scuro a verde scuro */
+        }
+        
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+            justify-content: center;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .category-tab {
+            flex: 1;
+            min-width: 120px;
+            max-width: 180px;
+            padding: 14px 10px;
+            text-align: center;
+            background-color: #f1f3ff;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            color: var(--dark);
+            border: 2px solid #e0e7ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .dark-mode .category-tab {
+            background-color: #2a2a40;
+            border: 2px solid #3a3a5a;
+            color: #e0e0ff;
+        }
+        
+        .super-mario-theme .category-tab {
+            background-color: #FFB74D;
+            border-color: #E52521;
+            color: #2a1a00; /* Testo scuro per leggibilità */
+        }
+        
+        .dark-mode.super-mario-theme .category-tab {
+            background-color: #8a4e00;
+            border-color: #8a0303;
+            color: #ffd166; /* Testo giallo chiaro per leggibilità in dark mode */
+        }
+        
+        .category-tab i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        
+        .dark-mode .category-tab i {
+            color: var(--accent);
+        }
+        
+        .super-mario-theme .category-tab i {
+            color: #E52521;
+        }
+        
+        .dark-mode.super-mario-theme .category-tab i {
+            color: #ffd166; /* Icone gialle per leggibilità in dark mode */
+        }
+        
+        .category-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .dark-mode .category-tab.active {
+            background: linear-gradient(135deg, #4cc9f0, #4361ee);
+        }
+        
+        .super-mario-theme .category-tab.active {
+            background: linear-gradient(135deg, #E52521, #39B54A); /* Rosso a verde */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        
+        .dark-mode.super-mario-theme .category-tab.active {
+            background: linear-gradient(135deg, #8a0303, #005000); /* Rosso scuro a verde scuro */
+        }
+        
+        .category-tab.active i {
+            color: white;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .dark-mode .form-group label {
+            color: #e0e0ff;
+        }
+        
+        .super-mario-theme .form-group label {
+            color: #2a1a00; /* Testo scuro per leggibilità */
+        }
+        
+        .dark-mode.super-mario-theme .form-group label {
+            color: #ffd166;
+        }
+        
+        .form-group label i {
+            color: var(--primary);
+        }
+        
+        .dark-mode .form-group label i {
+            color: var(--accent);
+        }
+        
+        .super-mario-theme .form-group label i {
+            color: #E52521;
+        }
+        
+        .dark-mode.super-mario-theme .form-group label i {
+            color: #ffd166; /* Icone gialle per leggibilità in dark mode */
+        }
+        
+        select, input {
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            background-color: white;
+            transition: var(--transition);
+            width: 100%;
+            color: #333;
+        }
+        
+        .dark-mode select, .dark-mode input {
+            background: #323232;
+            color: #fff;
+            border-color: #444;
+        }
+        
+        .super-mario-theme select, 
+        .super-mario-theme input {
+            background: #fffde7;
+            border-color: #E52521;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            color: #333;
+        }
+        
+        .dark-mode.super-mario-theme select,
+        .dark-mode.super-mario-theme input {
+            background: #2a2a2a;
+            border-color: #8a0303;
+            color: #fff;
+        }
+        
+        input {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .dark-mode input {
+            background: #2a2a2a;
+            color: #fff;
+        }
+        
+        input:focus {
+            background: white;
+        }
+        
+        .dark-mode input:focus {
+            background: #3a3a3a;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(76, 201, 240, 0.2);
+        }
+        
+        .dark-mode select:focus, .dark-mode input:focus {
+            box-shadow: 0 0 0 4px rgba(76, 201, 240, 0.4);
+        }
+        
+        .super-mario-theme select:focus,
+        .super-mario-theme input:focus {
+            border-color: #39B54A; /* Verde */
+            box-shadow: 0 0 0 4px rgba(57, 181, 74, 0.3);
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .input-row > div {
+            flex: 1;
+        }
+        
+        .swap-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .dark-mode .swap-btn {
+            background: linear-gradient(135deg, #4cc9f0, #4361ee);
+        }
+        
+        .super-mario-theme .swap-btn {
+            background: linear-gradient(135deg, #E52521, #39B54A); /* Rosso a verde */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .swap-btn:hover {
+            transform: rotate(180deg) scale(1.05);
+            box-shadow: 0 7px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .convert-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 18px 25px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .dark-mode .convert-btn {
+            background: linear-gradient(135deg, #4cc9f0, #4361ee);
+        }
+        
+        .super-mario-theme .convert-btn {
+            background: linear-gradient(135deg, #E52521, #39B54A); /* Rosso a verde */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        
+        .dark-mode.super-mario-theme .convert-btn {
+            background: linear-gradient(135deg, #8a0303, #005000); /* Rosso scuro a verde scuro */
+        }
+        
+        .convert-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .result-container {
+            margin-top: 25px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: 2px dashed #bae6fd;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .dark-mode .result-container {
+            background: linear-gradient(135deg, #1a2a3a, #0f1f2f);
+            border: 2px dashed #4cc9f0;
+        }
+        
+        .super-mario-theme .result-container {
+            background: linear-gradient(135deg, #e1f5fe, #c8e6c9); /* Azzurro chiaro a verde chiaro */
+            border: 2px dashed #39B54A; /* Verde */
+            color: #2a1a00; /* Testo scuro */
+        }
+        
+        .dark-mode.super-mario-theme .result-container {
+            background: linear-gradient(135deg, #0a1f2f, #0a2f1f);
+            border: 2px dashed #66FF66; /* Verde brillante */
+            color: #f0f0f0; /* Testo chiaro per leggibilità */
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-value {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 15px 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* CORREZIONE: RISULTATO VISIBILE IN MODALITÀ SCURA */
+        .dark-mode .result-value {
+            background: none;
+            -webkit-text-fill-color: #ffffff;
+            color: #ffffff;
+        }
+        
+        .super-mario-theme .result-value {
+            color: #2a1a00; /* Testo scuro per leggibilità */
+            background: linear-gradient(90deg, #E52521, #39B54A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .dark-mode.super-mario-theme .result-value {
+            background: linear-gradient(90deg, #FF6B6B, #66FF66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .conversion-text {
+            font-size: 1.4rem;
+            color: var(--dark);
+            font-weight: 600;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .dark-mode .conversion-text {
+            color: #ffffff;
+        }
+        
+        .super-mario-theme .conversion-text {
+            color: #2a1a00; /* Testo scuro per leggibilità */
+        }
+        
+        .dark-mode.super-mario-theme .conversion-text {
+            color: #ffd166;
+        }
+        
+        .conversion-text span {
+            background: var(--warning);
+            color: var(--dark);
+            padding: 3px 10px;
+            border-radius: 8px;
+        }
+        
+        .dark-mode .conversion-text span {
+            color: #333;
+        }
+        
+        .rate-info {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-top: 15px;
+            font-style: italic;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        .dark-mode .rate-info {
+            color: #ccc;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .super-mario-theme .rate-info {
+            color: #2a1a00; /* Testo scuro per leggibilità */
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #39B54A; /* Verde */
+        }
+        
+        .dark-mode.super-mario-theme .rate-info {
+            color: #ffd166;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .history-title {
+            color: var(--dark);
+            font-weight: 600;
+            margin: 25px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            transition: color 0.3s ease;
+        }
+        
+        .dark-mode .history-title {
+            color: #ffffff;
+        }
+        
+        .super-mario-theme .history-title {
+            color: #2a1a00; /* Testo scuro per leggibilità */
+        }
+        
+        .dark-mode.super-mario-theme .history-title {
+            color: #ffd166;
+        }
+        
+        .history-container {
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .history-item {
+            background: white;
+            border-radius: 12px;
+            padding: 15px 18px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .dark-mode .history-item {
+            background: rgba(40, 40, 40, 0.8);
+        }
+        
+        .super-mario-theme .history-item {
+            background: linear-gradient(135deg, #fff176, #c8e6c9); /* Giallo a verde chiaro */
+            border-left: 4px solid #E52521;
+            color: #2a1a00; /* Testo scuro */
+        }
+        
+        .dark-mode.super-mario-theme .history-item {
+            background: linear-gradient(135deg, #5c3d00, #0a2f1f); /* Marrone scuro a verde scuro */
+            border-left: 4px solid #8a0303;
+            color: #ffd166; /* Testo giallo chiaro per leggibilità */
+        }
+        
+        .history-value {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .dark-mode .history-value {
+            color: var(--accent);
+        }
+        
+        .super-mario-theme .history-value {
+            color: #E52521;
+        }
+        
+        .dark-mode.super-mario-theme .history-value {
+            color: #ffd166; /* Testo giallo chiaro per leggibilità */
+        }
+        
+        .history-delete {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .dark-mode .history-delete {
+            color: #ff7b7b;
+        }
+        
+        .super-mario-theme .history-delete {
+            color: #8a0303;
+        }
+        
+        .dark-mode.super-mario-theme .history-delete {
+            color: #ff7b7b;
+        }
+        
+        /* Bottone Modalità Scura */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1.5rem;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .dark-mode-toggle.dark {
+            background: linear-gradient(135deg, #ffd166, #06d6a0);
+            color: #333;
+        }
+        
+        .super-mario-theme .dark-mode-toggle {
+            background: linear-gradient(135deg, #E52521, #39B54A); /* Rosso a verde */
+        }
+        
+        .dark-mode.super-mario-theme .dark-mode-toggle {
+            background: linear-gradient(135deg, #8a0303, #005000); /* Rosso scuro a verde scuro */
+        }
+
+        /* CORREZIONE: ICONA IN MODALITÀ SCURA DEL TEMA SUPER MARIO */
+        .dark-mode.super-mario-theme .dark-mode-toggle.dark {
+            color: white;
+        }
+        
+        /* Easter Eggs Styles */
+        .konami-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #FF6B6B, #39B54A); /* Rosso a verde */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+            display: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            border: 2px solid white;
+        }
+        
+        .special-message {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid;
+        }
+        
+        .special-message:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3));
+            z-index: 1;
+        }
+        
+        .special-message-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* CORREZIONE: ADATTAMENTO EASTER EGG ALLA MODALITÀ SCURA */
+        .dark-mode .special-message {
+            background: rgba(40, 40, 40, 0.9) !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .dark-mode .special-message .special-message-content {
+            color: #ffffff !important;
+        }
+        
+        .dark-mode .special-message:before {
+            background: linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0.15)) !important;
+        }
+        
+        .emoji-change-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.95);
+            padding: 20px 40px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            animation: fadeIn 0.5s, scaleUp 0.5s;
+            display: none;
+            border: 3px solid #39B54A; /* Verde */
+        }
+        
+        .dark-mode .emoji-change-message {
+            background: rgba(40,40,40,0.95);
+            color: white;
+        }
+        
+        /* DOGE MEME */
+        .doge-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            z-index: 2000;
+            display: none;
+            text-align: center;
+            max-width: 90%;
+            width: 500px;
+            border: 3px solid #FFD700;
+        }
+        
+        .doge-message img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .doge-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FF9800;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin-bottom: 15px;
+        }
+        
+        .dark-mode .doge-message {
+            background: rgba(40,40,40,0.95);
+        }
+        
+        /* VIDEO POPUP */
+        .video-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            z-index: 2000;
+            display: none;
+            max-width: 90%;
+            width: 800px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        
+        .close-video-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ef476f;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .video-popup-content {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        /* MODIFICATO: Stile per il contenitore GIF */
+        .gif-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .gif-container img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+        
+        .video-message {
+            text-align: center;
+            padding: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffd166;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .video-popup {
+                width: 95%;
+            }
+        }
+        
+        /* Easter Egg Section */
+        .easter-egg-section {
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .dark-mode .easter-egg-section {
+            background: rgba(40, 40, 40, 0.9);
+        }
+        
+        .super-mario-theme .easter-egg-section {
+            background: linear-gradient(135deg, #ffd54f, #c8e6c9); /* Giallo a verde chiaro */
+            border: 2px solid #E52521;
+            color: #2a1a00; /* Testo scuro */
+        }
+        
+        .dark-mode.super-mario-theme .easter-egg-section {
+            background: linear-gradient(135deg, #5c3d00, #0a2f1f); /* Marrone scuro a verde scuro */
+            color: #ffd166; /* Testo giallo chiaro per leggibilità */
+        }
+        
+        .easter-egg-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .easter-egg-section h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dark-mode .easter-egg-section h2 {
+            color: var(--accent);
+        }
+        
+        .super-mario-theme .easter-egg-section h2 {
+            color: #E52521;
+        }
+        
+        .dark-mode.super-mario-theme .easter-egg-section h2 {
+            color: #ffd166; /* Testo giallo chiaro per leggibilità */
+        }
+        
+        .egg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .egg-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .dark-mode .egg-card {
+            background: rgba(40, 40, 40, 0.8);
+            color: #fff;
+        }
+        
+        .super-mario-theme .egg-card {
+            background: linear-gradient(135deg, #fff176, #c8e6c9); /* Giallo a verde chiaro */
+            border: 2px solid #E52521;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            color: #2a1a00; /* Testo scuro */
+        }
+        
+        .dark-mode.super-mario-theme .egg-card {
+            background: linear-gradient(135deg, #5c3d00, #0a2f1f); /* Marrone scuro a verde scuro */
+            color: #ffd166; /* Testo giallo chiaro per leggibilità */
+        }
+        
+        .egg-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .egg-card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dark-mode .egg-card h3 {
+            color: var(--accent);
+        }
+        
+        .super-mario-theme .egg-card h3 {
+            color: #E52521;
+        }
+        
+        .dark-mode.super-mario-theme .egg-card h3 {
+            color: #ffd166; /* Testo giallo chiaro per leggibilità */
+        }
+        
+        .egg-card p {
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .dark-mode .egg-card p {
+            color: #ddd;
+        }
+        
+        .super-mario-theme .egg-card p {
+            color: #2a1a00; /* Testo scuro */
+        }
+        
+        .dark-mode.super-mario-theme .egg-card p {
+            color: #ffd166;
+        }
+        
+        .speed-animation {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            height: 50px;
+            position: relative;
+        }
+        
+        .speed-animation .car {
+            font-size: 2.5rem;
+            position: absolute;
+            animation: carDrive 3s infinite linear;
+        }
+        
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .number-badge {
+            background: linear-gradient(135deg, #4cc9f0, #4361ee);
+            color: white;
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        
+        .dark-mode .number-badge {
+            background: linear-gradient(135deg, #3a0ca3, #4361ee);
+        }
+        
+        .super-mario-theme .number-badge {
+            background: linear-gradient(135deg, #E52521, #39B54A); /* Rosso a verde */
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Animazioni */
+        @keyframes slideDown {
+            0% { transform: translate(-50%, -100px); }
+            100% { transform: translate(-50%, 0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes carDrive {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(100px); }
+        }
+        
+        @keyframes scaleUp {
+            from { transform: translate(-50%, -50%) scale(0.8); }
+            to { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff0000;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        
+        /* Emoji fluttuanti per il tema Super Mario */
+        .mario-emoji {
+            position: fixed;
+            font-size: 2.5rem;
+            z-index: 0;
+            pointer-events: none;
+            animation: floatEmoji linear infinite;
+            opacity: 0.8;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes floatEmoji {
+            0% {
+                transform: translateY(100vh) translateX(0);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .input-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .swap-btn {
+                transform: rotate(90deg);
+            }
+            
+            .swap-btn:hover {
+                transform: rotate(270deg) scale(1.05);
+            }
+            
+            .result-value {
+                font-size: 2rem;
+            }
+            
+            .egg-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dark-mode-toggle {
+                top: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .doge-message {
+                width: 90%;
+            }
+            
+            .video-popup {
+                width: 95%;
+            }
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .dark-mode ::-webkit-scrollbar-track {
+            background: #333;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .super-mario-theme ::-webkit-scrollbar-thumb {
+            background: #E52521;
+        }
+        
+        .super-mario-theme ::-webkit-scrollbar-thumb:hover {
+            background: #39B54A; /* Verde */
+        }
+    </style>
+</head>
+<body>
+    <!-- Bottone Modalità Scura -->
+    <button class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <!-- Messaggio Konami -->
+    <div class="konami-message" id="konamiMessage"></div>
+    
+    <!-- Messaggio per cambio emoji -->
+    <div class="emoji-change-message" id="emojiChangeMessage">
+        <div id="emojiMessageContent"></div>
+        <button class="convert-btn" id="closeEmojiMessageBtn">Chiudi</button>
+    </div>
+    
+    <!-- Messaggio Doge -->
+    <div class="doge-message" id="dogeMessage">
+        <div class="doge-text">wow! such convert! very meme!</div>
+        <img src="https://grupovierci.brightspotcdn.com/dims4/default/89bd4ad/2147483647/strip/true/crop/652x367+0+0/resize/1000x563!/quality/90/?url=https%3A%2F%2Fk2-prod-grupo-vierci.s3.us-east-1.amazonaws.com%2Fbrightspot%2F51%2F91%2Fee7fb98f46aebf74a36ad2a44c42%2Ffoto-meme.JPG" alt="Doge Meme">
+        <button class="convert-btn" id="closeDogeBtn">Chiudi</button>
+    </div>
+    
+    <!-- Video Popup - MODIFICATO: ora è GIF + Audio -->
+    <div class="video-popup" id="videoPopup">
+        <button class="close-video-btn" id="closeVideoBtn">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="video-message">Sei stato rick-rollato!!!<br>Mi dispiace...</div>
+        <div class="video-popup-content">
+            <div class="gif-container">
+                <img id="rickGif" src="" alt="Rick Astley Dancing">
+            </div>
+            <audio id="rickAudio"></audio>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Card per titolo e descrizione -->
+        <div class="header-card">
+            <div class="header">
+                <div class="logo-container">
+                    <div class="logo-emoji" id="logoEmoji">🧮</div>
+                    <h1>Convertitore Universale</h1>
+                </div>
+                <p class="description">Converti valute, temperatura, velocità, tempo e altre unità di misura con tassi aggiornati. Scopri gli easter eggs!</p>
+            </div>
+        </div>
+        
+        <!-- Card per il convertitore -->
+        <div class="converter-card" id="converterCard">
+            <div class="category-tabs">
+                <div class="category-tab active" data-category="currency">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Valuta</span>
+                </div>
+                <div class="category-tab" data-category="temperature">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>Temperatura</span>
+                </div>
+                <div class="category-tab" data-category="length">
+                    <i class="fas fa-ruler"></i>
+                    <span>Lunghezza</span>
+                </div>
+                <div class="category-tab" data-category="weight">
+                    <i class="fas fa-weight"></i>
+                    <span>Peso</span>
+                </div>
+                <div class="category-tab" data-category="volume">
+                    <i class="fas fa-flask"></i>
+                    <span>Volume</span>
+                </div>
+                <div class="category-tab" data-category="time">
+                    <i class="fas fa-clock"></i>
+                    <span>Tempo</span>
+                </div>
+                <div class="category-tab" data-category="speed">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Velocità</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="inputValue"><i class="fas fa-calculator"></i> Valore:</label>
+                <input type="text" id="inputValue" placeholder="Inserisci valore" min="0" step="0.01">
+            </div>
+            
+            <div class="input-row">
+                <div class="form-group">
+                    <label for="fromUnit"><i class="fas fa-arrow-circle-right"></i> Da:</label>
+                    <select id="fromUnit"></select>
+                </div>
+                
+                <button class="swap-btn" id="swapBtn">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                
+                <div class="form-group">
+                    <label for="toUnit"><i class="fas fa-arrow-circle-left"></i> A:</label>
+                    <select id="toUnit"></select>
+                </div>
+            </div>
+            
+            <button class="convert-btn" id="convertBtn">
+                <i class="fas fa-exchange-alt"></i> Converti
+            </button>
+        </div>
+        
+        <div class="result-container" id="resultContainer">
+            <div class="conversion-text">Risultato della conversione:</div>
+            <div class="result-value" id="resultValue"></div>
+            <div id="specialMessageContainer"></div>
+            <div class="rate-info" id="rateInfo"></div>
+        </div>
+        
+        <div class="history-title">
+            <i class="fas fa-history"></i> Cronologia Conversioni
+        </div>
+        <div class="history-container" id="historyContainer">
+            <!-- Le conversioni verranno aggiunte qui dinamicamente -->
+        </div>
+    </div>
+
+    <div class="container easter-egg-section">
+        <div class="easter-egg-header" id="easterEggHeader">
+            <h2><i class="fas fa-egg"></i> Easter Eggs Segreti</h2>
+            <button class="convert-btn" id="toggleEggsBtn">
+                <i class="fas fa-chevron-down"></i> Mostra
+            </button>
+        </div>
+        <div class="egg-grid" id="eggGrid" style="display: none;">
+            <div class="egg-card">
+                <h3><i class="fas fa-gamepad"></i> Konami Code</h3>
+                <p>Premi in sequenza: ↑ ↑ ↓ ↓ ← → ← → B A per attivare funzionalità segrete.</p>
+            </div>
+            
+            <div class="egg-card">
+                <h3><i class="fas fa-magic"></i> Numeri Speciali</h3>
+                <p>Prova a inserire uno di questi numeri per vedere messaggi segreti:</p>
+                <div class="number-grid">
+                    <div class="number-badge">42</div>
+                    <div class="number-badge">1337</div>
+                    <div class="number-badge">80085</div>
+                    <div class="number-badge">12345</div>
+                    <div class="number-badge">1984</div>
+                    <div class="number-badge">404</div>
+                    <div class="number-badge">777</div>
+                    <div class="number-badge">666</div>
+                    <div class="number-badge">0</div>
+                    <div class="number-badge">100</div>
+                    <div class="number-badge">314159</div>
+                    <div class="number-badge">271828</div>
+                    <div class="number-badge">112358</div>
+                    <div class="number-badge">1987</div>
+                </div>
+            </div>
+            
+            <div class="egg-card">
+                <h3><i class="fas fa-robot"></i> Cambia Emoji</h3>
+                <p>Clicca 5 volte velocemente sull'emoji nel titolo per scoprire nuove emoji!</p>
+            </div>
+            
+            <div class="egg-card">
+                <h3><i class="fas fa-car"></i> Velocità di una Lumaca</h3>
+                <p>Nella categoria velocità, prova a convertire in 🐌 (lumache al minuto) per scoprire quanto sei lento!</p>
+                <div class="speed-animation">
+                    <div class="car">🐌</div>
+                </div>
+            </div>
+            
+            <div class="egg-card">
+                <h3><i class="fas fa-tree"></i> Temi Stagionali</h3>
+                <p>Il convertitore cambia tema automaticamente a Natale, Halloween e Capodanno.</p>
+            </div>
+            
+            <div class="egg-card">
+                <h3><i class="fas fa-brain"></i> Unità Assurde</h3>
+                <p>Prova a convertire lunghezze in banane 🍌, pesi in elefanti 🐘!</p>
+            </div>
+            
+            <div class="egg-card">
+                <h3><i class="fas fa-dog"></i> Meme Doge</h3>
+                <p>Scrivi "doge" nel campo valore e premi Converti per attivare il meme!</p>
+            </div>
+            
+            <div class="egg-card">
+                <h3><i class="fas fa-video"></i> Video 1987</h3>
+                <p>Inserisci il numero 1987 per vedere un video speciale!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dati di configurazione per le unità di misura
+        const units = {
+            currency: [
+                { name: "Euro", symbol: "EUR", flag: "🇪🇺" },
+                { name: "Dollaro USA", symbol: "USD", flag: "🇺🇸" },
+                { name: "Sterlina britannica", symbol: "GBP", flag: "🇬🇧" },
+                { name: "Yen giapponese", symbol: "JPY", flag: "🇯🇵" },
+                { name: "Franco svizzero", symbol: "CHF", flag: "🇨🇭" },
+                { name: "Dollaro canadese", symbol: "CAD", flag: "🇨🇦" },
+                { name: "Dollaro australiano", symbol: "AUD", flag: "🇦🇺" },
+                { name: "Renminbi cinese", symbol: "CNY", flag: "🇨🇳" }
+            ],
+            temperature: [
+                { name: "Celsius", symbol: "°C" },
+                { name: "Fahrenheit", symbol: "°F" },
+                { name: "Kelvin", symbol: "K" }
+            ],
+            length: [
+                { name: "Millimetri", symbol: "mm" },
+                { name: "Centimetri", symbol: "cm" },
+                { name: "Metri", symbol: "m" },
+                { name: "Chilometri", symbol: "km" },
+                { name: "Pollici", symbol: "in" },
+                { name: "Piedi", symbol: "ft" },
+                { name: "Iarde", symbol: "yd" },
+                { name: "Miglia", symbol: "mi" },
+                { name: "Banane", symbol: "🍌", special: true }
+            ],
+            weight: [
+                { name: "Milligrammi", symbol: "mg" },
+                { name: "Grammi", symbol: "g" },
+                { name: "Chilogrammi", symbol: "kg" },
+                { name: "Tonnellate", symbol: "t" },
+                { name: "Once", symbol: "oz" },
+                { name: "Libbre", symbol: "lb" },
+                { name: "Elefanti", symbol: "🐘", special: true }
+            ],
+            volume: [
+                { name: "Millilitri", symbol: "ml" },
+                { name: "Litri", symbol: "l" },
+                { name: "Metri cubi", symbol: "m³" },
+                { name: "Pollici cubi", symbol: "in³" },
+                { name: "Piedi cubi", symbol: "ft³" },
+                { name: "Galloni USA", symbol: "gal" },
+                { name: "Tazze di tè", symbol: "🍵", special: true }
+            ],
+            time: [
+                { name: "Secondi", symbol: "s" },
+                { name: "Minuti", symbol: "min" },
+                { name: "Ore", symbol: "h" },
+                { name: "Giorni", symbol: "d" },
+                { name: "Settimane", symbol: "w" },
+                { name: "Mesi", symbol: "m" },
+                { name: "Anni", symbol: "y" },
+                { name: "Millenni", symbol: "my", special: true }
+            ],
+            speed: [
+                { name: "Chilometri all'ora", symbol: "km/h" },
+                { name: "Metri al secondo", symbol: "m/s" },
+                { name: "Miglia all'ora", symbol: "mph" },
+                { name: "Nodi", symbol: "kn" },
+                { name: "Piedi al secondo", symbol: "ft/s" },
+                { name: "Lumache al minuto", symbol: "🐌", special: true }
+            ]
+        };
+
+        // Fattori di conversione
+        const conversionFactors = {
+            length: {
+                mm: { base: 0.001, name: "Millimetri" },
+                cm: { base: 0.01, name: "Centimetri" },
+                m: { base: 1, name: "Metri" },
+                km: { base: 1000, name: "Chilometri" },
+                in: { base: 0.0254, name: "Pollici" },
+                ft: { base: 0.3048, name: "Piedi" },
+                yd: { base: 0.9144, name: "Iarde" },
+                mi: { base: 1609.344, name: "Miglia" },
+                "🍌": { base: 0.2, name: "Banane" }
+            },
+            weight: {
+                mg: { base: 0.000001, name: "Milligrammi" },
+                g: { base: 0.001, name: "Grammi" },
+                kg: { base: 1, name: "Chilogrammi" },
+                t: { base: 1000, name: "Tonnellate" },
+                oz: { base: 0.0283495, name: "Once" },
+                lb: { base: 0.453592, name: "Libbre" },
+                "🐘": { base: 6000, name: "Elefanti" }
+            },
+            volume: {
+                ml: { base: 0.001, name: "Millilitri" },
+                l: { base: 1, name: "Litri" },
+                "m³": { base: 1000, name: "Metri cubi" },
+                "in³": { base: 0.0163871, name: "Pollici cubi" },
+                "ft³": { base: 28.3168, name: "Piedi cubi" },
+                gal: { base: 3.78541, name: "Galloni USA" },
+                "🍵": { base: 0.25, name: "Tazze di tè" }
+            },
+            time: {
+                s: { base: 1, name: "Secondi" },
+                min: { base: 60, name: "Minuti" },
+                h: { base: 3600, name: "Ore" },
+                d: { base: 86400, name: "Giorni" },
+                w: { base: 604800, name: "Settimane" },
+                m: { base: 2592000, name: "Mesi" }, // 30 giorni
+                y: { base: 31536000, name: "Anni" }, // 365 giorni
+                my: { base: 31536000000, name: "Millenni" } // 1000 anni
+            },
+            speed: {
+                "km/h": { base: 1, name: "Chilometri all'ora" },
+                "m/s": { base: 3.6, name: "Metri al secondo" },
+                "mph": { base: 1.60934, name: "Miglia all'ora" },
+                "kn": { base: 1.852, name: "Nodi" },
+                "ft/s": { base: 1.09728, name: "Piedi al secondo" },
+                "🐌": { base: 0.05, name: "Lumache al minuto" } // Easter egg unit - MODIFICATO
+            }
+        };
+
+        // Tassi di cambio
+        const exchangeRates = {
+            EUR: { 
+                USD: 1.07, 
+                GBP: 0.85, 
+                JPY: 157.25, 
+                CHF: 0.97, 
+                CAD: 1.46, 
+                AUD: 1.62, 
+                CNY: 7.74 
+            },
+            USD: { 
+                EUR: 0.93, 
+                GBP: 0.79, 
+                JPY: 146.92, 
+                CHF: 0.90, 
+                CAD: 1.36, 
+                AUD: 1.51, 
+                CNY: 7.23 
+            },
+            GBP: { 
+                EUR: 1.17, 
+                USD: 1.26, 
+                JPY: 184.82, 
+                CHF: 1.14, 
+                CAD: 1.72, 
+                AUD: 1.91, 
+                CNY: 9.11 
+            },
+            JPY: { 
+                EUR: 0.0064, 
+                USD: 0.0068, 
+                GBP: 0.0054, 
+                CHF: 0.0062, 
+                CAD: 0.0093, 
+                AUD: 0.0103, 
+                CNY: 0.049 
+            }
+        };
+
+        // Elementi DOM
+        const fromUnitSelect = document.getElementById('fromUnit');
+        const toUnitSelect = document.getElementById('toUnit');
+        const inputValue = document.getElementById('inputValue');
+        const convertBtn = document.getElementById('convertBtn');
+        const resultContainer = document.getElementById('resultContainer');
+        const resultValue = document.getElementById('resultValue');
+        const rateInfo = document.getElementById('rateInfo');
+        const swapBtn = document.getElementById('swapBtn');
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const historyContainer = document.getElementById('historyContainer');
+        const konamiMessage = document.getElementById('konamiMessage');
+        const specialMessageContainer = document.getElementById('specialMessageContainer');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const toggleEggsBtn = document.getElementById('toggleEggsBtn');
+        const eggGrid = document.getElementById('eggGrid');
+        const logoEmoji = document.getElementById('logoEmoji');
+        const emojiChangeMessage = document.getElementById('emojiChangeMessage');
+        const emojiMessageContent = document.getElementById('emojiMessageContent');
+        const closeEmojiMessageBtn = document.getElementById('closeEmojiMessageBtn');
+        const dogeMessage = document.getElementById('dogeMessage');
+        const closeDogeBtn = document.getElementById('closeDogeBtn');
+        const videoPopup = document.getElementById('videoPopup');
+        const closeVideoBtn = document.getElementById('closeVideoBtn');
+        const rickGif = document.getElementById('rickGif');
+        const rickAudio = document.getElementById('rickAudio');
+
+        // Easter Eggs Flags
+        let konamiActive = false;
+        let konamiCode = [];
+        const konamiSequence = [
+            'ArrowUp', 'ArrowUp', 
+            'ArrowDown', 'ArrowDown', 
+            'ArrowLeft', 'ArrowRight', 
+            'ArrowLeft', 'ArrowRight', 
+            'b', 'a'
+        ];
+        
+        // Emoji fluttuanti per Super Mario
+        let floatingEmojis = [];
+
+        // Cronologia conversioni
+        let conversionHistory = [];
+
+        // Emoji per il titolo
+        const emojiList = ["🧮", "🚀", "🌟", "🎯", "💡", "🔍", "🎩", "🪄", "🎲", "🎉", "🌈", "🦄", "🍕", "🍦", "🎮", "📱", "💻", "🔮", "🎨", "🎭"];
+        let currentEmojiIndex = 0;
+        let clickCount = 0;
+        let lastClickTime = 0;
+        let clickTimer = null;
+
+        // Inizializzazione
+        document.addEventListener('DOMContentLoaded', () => {
+            populateUnits('currency');
+            setupEventListeners();
+            loadHistory();
+            setupEasterEggs();
+            applySeasonalTheme();
+        });
+
+        // Popola le unità di misura
+        function populateUnits(category) {
+            fromUnitSelect.innerHTML = '';
+            toUnitSelect.innerHTML = '';
+            
+            units[category].forEach(unit => {
+                const fromOption = document.createElement('option');
+                fromOption.value = unit.symbol;
+                
+                if (category === 'currency' && unit.flag) {
+                    fromOption.textContent = `${unit.flag} ${unit.name} (${unit.symbol})`;
+                } else {
+                    fromOption.textContent = `${unit.name} (${unit.symbol})`;
+                }
+                
+                fromUnitSelect.appendChild(fromOption);
+                
+                const toOption = document.createElement('option');
+                toOption.value = unit.symbol;
+                
+                if (category === 'currency' && unit.flag) {
+                    toOption.textContent = `${unit.flag} ${unit.name} (${unit.symbol})`;
+                } else {
+                    toOption.textContent = `${unit.name} (${unit.symbol})`;
+                }
+                
+                toUnitSelect.appendChild(toOption);
+            });
+            
+            // Imposta valori di default
+            if (category === 'currency') {
+                fromUnitSelect.value = 'EUR';
+                toUnitSelect.value = 'USD';
+            } else if (category === 'temperature') {
+                fromUnitSelect.value = '°C';
+                toUnitSelect.value = '°F';
+            } else if (category === 'length') {
+                fromUnitSelect.value = 'm';
+                toUnitSelect.value = 'cm';
+            } else if (category === 'weight') {
+                fromUnitSelect.value = 'kg';
+                toUnitSelect.value = 'g';
+            } else if (category === 'volume') {
+                fromUnitSelect.value = 'l';
+                toUnitSelect.value = 'ml';
+            } else if (category === 'time') {
+                fromUnitSelect.value = 's';
+                toUnitSelect.value = 'min';
+            } else if (category === 'speed') {
+                fromUnitSelect.value = 'km/h';
+                toUnitSelect.value = 'm/s';
+            }
+        }
+
+        // Configura event listener
+        function setupEventListeners() {
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const category = tab.dataset.category;
+                    populateUnits(category);
+                    resultContainer.style.display = 'none';
+                });
+            });
+
+            convertBtn.addEventListener('click', performConversion);
+            swapBtn.addEventListener('click', swapUnits);
+            inputValue.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') performConversion();
+            });
+            
+            // Event listener per il pulsante modalità scura
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+            
+            // Event listener per il pulsante mostra/nascondi easter eggs
+            toggleEggsBtn.addEventListener('click', () => {
+                if (eggGrid.style.display === 'none') {
+                    eggGrid.style.display = 'grid';
+                    toggleEggsBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Nascondi';
+                } else {
+                    eggGrid.style.display = 'none';
+                    toggleEggsBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Mostra';
+                }
+            });
+            
+            // Event listener per l'emoji
+            logoEmoji.addEventListener('click', handleEmojiClick);
+            
+            // Event listener per chiudere il messaggio emoji
+            closeEmojiMessageBtn.addEventListener('click', () => {
+                emojiChangeMessage.style.display = 'none';
+            });
+            
+            // Event listener per chiudere il meme Doge
+            closeDogeBtn.addEventListener('click', () => {
+                dogeMessage.style.display = 'none';
+            });
+            
+            // Event listener per chiudere il video popup
+            closeVideoBtn.addEventListener('click', closeVideoPopup);
+        }
+
+        // Gestione click sull'emoji
+        function handleEmojiClick() {
+            const now = Date.now();
+            
+            // Reset counter se passati più di 1.5 secondi dall'ultimo click
+            if (now - lastClickTime > 1500) {
+                clickCount = 0;
+            }
+            
+            lastClickTime = now;
+            clickCount++;
+            
+            // Reset del timer
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 1500);
+            
+            // Se raggiunti 5 click
+            if (clickCount === 5) {
+                clickCount = 0;
+                changeLogoEmoji();
+            }
+        }
+        
+        // Cambia l'emoji del logo
+        function changeLogoEmoji() {
+            currentEmojiIndex = (currentEmojiIndex + 1) % emojiList.length;
+            const newEmoji = emojiList[currentEmojiIndex];
+            
+            // Effetto di transizione
+            logoEmoji.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                logoEmoji.textContent = newEmoji;
+                logoEmoji.style.transform = 'scale(1)';
+            }, 300);
+            
+            // Mostra messaggio
+            emojiMessageContent.innerHTML = `
+                <div style="font-size: 4rem; margin-bottom: 20px;">${newEmoji}</div>
+                <p>Nuova emoji attivata!</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Hai sbloccato l'emoji ${currentEmojiIndex + 1} di ${emojiList.length}</p>
+            `;
+            emojiChangeMessage.style.display = 'flex';
+            
+            // Effetti visivi
+            createConfetti();
+        }
+        
+        // Crea effetto confetti
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = `${Math.random() * 15 + 5}px`;
+                confetti.style.height = `${Math.random() * 15 + 5}px`;
+                confetti.style.animation = `confetti ${Math.random() * 3 + 2}s linear forwards`;
+                document.body.appendChild(confetti);
+                
+                // Rimuovi confetto dopo l'animazione
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+
+        // Configura easter eggs
+        function setupEasterEggs() {
+            // Konami code
+            document.addEventListener('keydown', (e) => {
+                konamiCode.push(e.key);
+                if (konamiCode.length > konamiSequence.length) {
+                    konamiCode.shift();
+                }
+                
+                // Controlla se l'ultima sequenza corrisponde
+                const tail = konamiCode.slice(-konamiSequence.length);
+                if (tail.join('') === konamiSequence.join('')) {
+                    activateKonami();
+                    konamiCode = []; // Reset dopo l'attivazione
+                }
+            });
+        }
+
+        // Easter Egg: Attiva/disattiva il codice Konami
+        function activateKonami() {
+            konamiActive = !konamiActive;
+            
+            if (konamiActive) {
+                konamiMessage.textContent = "Konami Code Attivato! Modalità Super Mario Attivata!";
+                konamiMessage.style.display = 'block';
+                document.body.classList.add('super-mario-theme');
+                createFloatingEmojis();
+            } else {
+                konamiMessage.textContent = "Konami Code Disattivato! Modalità Super Mario Disabilitata!";
+                konamiMessage.style.display = 'block';
+                document.body.classList.remove('super-mario-theme');
+                removeFloatingEmojis();
+            }
+            
+            setTimeout(() => {
+                konamiMessage.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Crea emoji fluttuanti per il tema Super Mario
+        function createFloatingEmojis() {
+            const emojis = ['🍄', '☁️', '⭐', '🍄', '☁️'];
+            removeFloatingEmojis();
+            
+            for (let i = 0; i < 15; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'mario-emoji';
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // Posizione casuale
+                emoji.style.left = `${Math.random() * 100}vw`;
+                
+                // Dimensioni casuali
+                const size = Math.random() * 2 + 1.5;
+                emoji.style.fontSize = `${size}rem`;
+                
+                // Durata animazione casuale
+                const duration = 10 + Math.random() * 20;
+                emoji.style.animation = `floatEmoji ${duration}s linear infinite`;
+                
+                // Ritardo casuale
+                emoji.style.animationDelay = `${Math.random() * 5}s`;
+                
+                document.body.appendChild(emoji);
+                floatingEmojis.push(emoji);
+            }
+        }
+        
+        // Rimuovi emoji fluttuanti
+        function removeFloatingEmojis() {
+            floatingEmojis.forEach(emoji => emoji.remove());
+            floatingEmojis = [];
+        }
+
+        // Easter Egg: Modalità scura
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            
+            // Cambia l'icona del pulsante
+            const icon = darkModeToggle.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                darkModeToggle.classList.add('dark');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                darkModeToggle.classList.remove('dark');
+            }
+        }
+
+        // Easter Egg: Controllo numeri speciali
+        function checkSpecialNumbers(value, rawValue) {
+            // Pulisci il messaggio precedente
+            specialMessageContainer.innerHTML = '';
+            
+            const specialMessages = {
+                '42': { 
+                    message: "La risposta alla vita, l'universo e tutto quanto!",
+                    color: "#4cc9f0",
+                    bg: "#f0f9ff"
+                },
+                '1337': { 
+                    message: "Leet H4x0r!",
+                    color: "#ffd166",
+                    bg: "#fff9e6"
+                },
+                '80085': { 
+                    message: "Boobs! (͡° ͜ʖ ͡°)",
+                    color: "#ef476f",
+                    bg: "#fef0f3"
+                },
+                '12345': { 
+                    message: "Password molto sicura!",
+                    color: "#06d6a0",
+                    bg: "#e6faf4"
+                },
+                '1984': { 
+                    message: "Grande Fratello ti sta guardando!",
+                    color: "#3a0ca3",
+                    bg: "#f1f3ff"
+                },
+                '404': { 
+                    message: "Unità non trovata!",
+                    color: "#ff9e00",
+                    bg: "#fff5e6"
+                },
+                '777': { 
+                    message: "Fortuna infinita!",
+                    color: "#ffd700",
+                    bg: "#fffde6"
+                },
+                '666': { 
+                    message: "Il numero della bestia!",
+                    color: "#b71c1c",
+                    bg: "#f9e6e6"
+                },
+                '0': { 
+                    message: "Nulla assoluto!",
+                    color: "#6c757d",
+                    bg: "#f8f9fa"
+                },
+                '100': { 
+                    message: "Cento per cento!",
+                    color: "#4361ee",
+                    bg: "#f0f4ff"
+                },
+                '314159': { 
+                    message: "Pi greco!",
+                    color: "#e91e63",
+                    bg: "#fce4ec"
+                },
+                '271828': { 
+                    message: "Numero di Eulero!",
+                    color: "#9c27b0",
+                    bg: "#f3e5f5"
+                },
+                '112358': { 
+                    message: "Sequenza di Fibonacci!",
+                    color: "#2196f3",
+                    bg: "#e3f2fd"
+                },
+                '1987': { 
+                    message: "Un salto nel passato!",
+                    color: "#ff9e00",
+                    bg: "#fff5e6"
+                }
+            };
+            
+            // Prima verifica i match esatti con il valore numerico
+            if (specialMessages[String(value)]) {
+                const {message, color, bg} = specialMessages[String(value)];
+                specialMessageContainer.innerHTML = `
+                    <div class="special-message" style="background: ${bg}; border-color: ${color};">
+                        <div class="special-message-content" style="color: ${color};">${message}</div>
+                    </div>
+                `;
+                return true;
+            }
+            
+            // Poi verifica i numeri speciali con decimali
+            if (rawValue && typeof rawValue === 'string') {
+                // Rimuovi tutto tranne numeri e punto/virgola
+                const cleanValue = rawValue.replace(/[^\d.,]/g, '');
+                // Sostituisci le virgole con punti per uniformità
+                const normalizedValue = cleanValue.replace(',', '.');
+                
+                // Rimuovi tutti i caratteri non numerici per la sequenza
+                const digitsOnly = cleanValue.replace(/[^\d]/g, '');
+                
+                // Controlla se la sequenza di cifre corrisponde
+                if (digitsOnly === '314159') {
+                    const {message, color, bg} = specialMessages['314159'];
+                    specialMessageContainer.innerHTML = `
+                        <div class="special-message" style="background: ${bg}; border-color: ${color};">
+                            <div class="special-message-content" style="color: ${color};">${message}</div>
+                        </div>
+                    `;
+                    return true;
+                }
+                
+                if (digitsOnly === '271828') {
+                    const {message, color, bg} = specialMessages['271828'];
+                    specialMessageContainer.innerHTML = `
+                        <div class="special-message" style="background: ${bg}; border-color: ${color};">
+                            <div class="special-message-content" style="color: ${color};">${message}</div>
+                        </div>
+                    `;
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        // Easter Egg: Tema stagionale
+        function applySeasonalTheme() {
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            
+            if (month === 12) {
+                document.body.classList.add('christmas');
+            } else if (month === 10) {
+                document.body.classList.add('halloween');
+            } else if (month === 1) {
+                document.body.classList.add('new-year');
+            }
+        }
+
+        // Scambia le unità
+        function swapUnits() {
+            const temp = fromUnitSelect.value;
+            fromUnitSelect.value = toUnitSelect.value;
+            toUnitSelect.value = temp;
+            performConversion();
+        }
+
+        // Easter Egg: Mostra meme Doge
+        function showDogeMeme() {
+            dogeMessage.style.display = 'block';
+            
+            // Aggiungi alla cronologia
+            const historyItem = {
+                value: '🐶',
+                fromUnit: 'doge',
+                result: 'wow!',
+                toUnit: 'meme',
+                category: 'doge',
+                timestamp: new Date().toLocaleString()
+            };
+            
+            conversionHistory.unshift(historyItem);
+            if (conversionHistory.length > 5) conversionHistory.pop();
+            localStorage.setItem('conversionHistory', JSON.stringify(conversionHistory));
+            updateHistoryView();
+        }
+        
+        // Easter Egg: Mostra GIF con audio
+        function showVideoPopup() {
+            // URL della GIF
+            const gifUrl = "https://media.giphy.com/media/Vuw9m5wXviFIQ/giphy.gif";
+            
+            // URL dell'audio .m4a
+            const audioUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.m4a";
+            
+            // Imposta la GIF
+            rickGif.src = gifUrl;
+            
+            // Imposta l'audio
+            rickAudio.src = audioUrl;
+            
+            // Riproduci l'audio
+            rickAudio.play().then(() => {
+                videoPopup.style.display = 'block';
+                
+                // Quando l'audio finisce, chiudi il popup
+                rickAudio.onended = closeVideoPopup;
+            }).catch(error => {
+                console.error("Errore nella riproduzione audio:", error);
+                videoPopup.style.display = 'block';
+            });
+        }
+        
+        // Chiudi il popup video
+        function closeVideoPopup() {
+            // Ferma la riproduzione audio
+            rickAudio.pause();
+            rickAudio.currentTime = 0;
+            
+            // Nascondi il popup
+            videoPopup.style.display = 'none';
+        }
+
+        // Esegue la conversione
+        function performConversion() {
+            // Pulisci messaggi precedenti
+            specialMessageContainer.innerHTML = '';
+            
+            const activeTab = document.querySelector('.category-tab.active');
+            const category = activeTab.dataset.category;
+            const rawInput = inputValue.value; // Ottieni il valore grezzo
+            
+            // Easter Egg: Meme Doge - MODIFICATO
+            if (rawInput.toLowerCase().trim() === 'doge') {
+                showDogeMeme();
+                inputValue.value = '';
+                return;
+            }
+            
+            const value = parseFloat(rawInput);
+            
+            if (isNaN(value)) {
+                alert('Inserisci un valore numerico valido');
+                return;
+            }
+            
+            const fromUnit = fromUnitSelect.value;
+            const toUnit = toUnitSelect.value;
+            
+            // Easter Egg: Numeri matematici
+            checkSpecialNumbers(value, rawInput);
+            
+            let result;
+            let conversionRate = null;
+            
+            // Easter Egg: Game over per valori impossibili
+            if (category === 'temperature' && value < -273.15 && fromUnit === '°C') {
+                resultValue.innerHTML = `IMPOSSIBILE! <i class="fas fa-skull"></i>`;
+                resultContainer.style.display = 'block';
+                rateInfo.textContent = "La temperatura non può essere inferiore allo zero assoluto (-273.15°C)";
+                return;
+            }
+            
+            // Calcola la conversione
+            switch (category) {
+                case 'currency':
+                    [result, conversionRate] = convertCurrency(value, fromUnit, toUnit);
+                    break;
+                case 'temperature':
+                    result = convertTemperature(value, fromUnit, toUnit);
+                    break;
+                case 'length':
+                case 'weight':
+                case 'volume':
+                case 'time':
+                case 'speed': // Nuova categoria velocità
+                    result = convertWithFactors(value, fromUnit, toUnit, category);
+                    conversionRate = calculateConversionRate(fromUnit, toUnit, category);
+                    break;
+                default:
+                    result = value;
+            }
+            
+            // Mostra il risultato
+            displayResult(value, fromUnit, result, toUnit, conversionRate);
+            saveToHistory(value, fromUnit, result, toUnit, category);
+            
+            // Easter Egg: Mostra video per il numero 1987
+            if (value === 1987) {
+                showVideoPopup();
+            }
+        }
+
+        // Funzioni di conversione
+        function convertCurrency(value, fromCurrency, toCurrency) {
+            if (fromCurrency === toCurrency) return [value, 1];
+            if (exchangeRates[fromCurrency]?.[toCurrency]) {
+                const rate = exchangeRates[fromCurrency][toCurrency];
+                return [value * rate, rate];
+            }
+            alert('Tasso di cambio non disponibile');
+            return [value, 1];
+        }
+
+        function convertTemperature(value, fromUnit, toUnit) {
+            let celsius;
+            switch (fromUnit) {
+                case '°C': celsius = value; break;
+                case '°F': celsius = (value - 32) * 5/9; break;
+                case 'K': celsius = value - 273.15; break;
+                default: return value;
+            }
+            switch (toUnit) {
+                case '°C': return celsius;
+                case '°F': return (celsius * 9/5) + 32;
+                case 'K': return celsius + 273.15;
+                default: return value;
+            }
+        }
+
+        function convertWithFactors(value, fromUnit, toUnit, category) {
+            const factors = conversionFactors[category];
+            if (!factors[fromUnit] || !factors[toUnit]) return value;
+            return value * factors[fromUnit].base / factors[toUnit].base;
+        }
+        
+        function calculateConversionRate(fromUnit, toUnit, category) {
+            const factors = conversionFactors[category];
+            if (!factors[fromUnit] || !factors[toUnit]) return null;
+            return factors[fromUnit].base / factors[toUnit].base;
+        }
+
+        // Mostra il risultato
+        function displayResult(inputValue, fromUnit, result, toUnit, conversionRate) {
+            resultValue.innerHTML = `${result.toLocaleString('it-IT', { maximumFractionDigits: 4 })} ${toUnit}`;
+            
+            // Easter Egg speciale per la velocità in lumache
+            if (toUnit === '🐌') {
+                resultValue.innerHTML = `${result.toFixed(4)} 🐌`;
+                specialMessageContainer.innerHTML = '<div class="special-message" style="background: #e6faf4; border-color: #06d6a0;"><div class="special-message-content" style="color: #06d6a0;">Questa è la tua velocità in lumache al minuto! 🐌</div></div>';
+            }
+            
+            if (conversionRate !== null && conversionRate !== 1) {
+                rateInfo.textContent = `Tasso di cambio: 1 ${fromUnit} = ${conversionRate.toFixed(6)} ${toUnit}`;
+            } else {
+                rateInfo.textContent = '';
+            }
+            
+            resultContainer.style.display = 'block';
+        }
+        
+        // Gestione cronologia
+        function saveToHistory(value, fromUnit, result, toUnit, category) {
+            const historyItem = {
+                value,
+                fromUnit,
+                result,
+                toUnit,
+                category,
+                timestamp: new Date().toLocaleString()
+            };
+            
+            conversionHistory.unshift(historyItem);
+            if (conversionHistory.length > 5) conversionHistory.pop();
+            localStorage.setItem('conversionHistory', JSON.stringify(conversionHistory));
+            updateHistoryView();
+        }
+        
+        function loadHistory() {
+            const savedHistory = localStorage.getItem('conversionHistory');
+            if (savedHistory) {
+                conversionHistory = JSON.parse(savedHistory);
+                updateHistoryView();
+            }
+        }
+        
+        function updateHistoryView() {
+            historyContainer.innerHTML = '';
+            if (conversionHistory.length === 0) {
+                historyContainer.innerHTML = '<div class="history-item">Nessuna conversione recente</div>';
+                return;
+            }
+            
+            conversionHistory.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                
+                let displayText;
+                if (item.category === 'doge') {
+                    displayText = "🐶 Doge meme attivato!";
+                } else {
+                    displayText = `<span class="history-value">${item.value} ${item.fromUnit}</span> → ${item.result.toFixed(4)} ${item.toUnit}`;
+                }
+                
+                const fromText = document.createElement('div');
+                fromText.innerHTML = displayText;
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'history-delete';
+                deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                deleteBtn.onclick = () => deleteHistoryItem(item.timestamp);
+                
+                historyItem.appendChild(fromText);
+                historyItem.appendChild(deleteBtn);
+                historyContainer.appendChild(historyItem);
+            });
+        }
+        
+        function deleteHistoryItem(timestamp) {
+            conversionHistory = conversionHistory.filter(item => item.timestamp !== timestamp);
+            localStorage.setItem('conversionHistory', JSON.stringify(conversionHistory));
+            updateHistoryView();
+        }
+    </script>
+</body>
+</html>
