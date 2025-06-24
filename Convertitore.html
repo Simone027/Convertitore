@@ -907,7 +907,7 @@
             background: rgba(40,40,40,0.95);
         }
         
-        /* VIDEO POPUP */
+        /* VIDEO POPUP - MODIFICATO: ora è GIF + Audio */
         .video-popup {
             position: fixed;
             top: 50%;
@@ -1513,7 +1513,8 @@
                 { name: "Piedi", symbol: "ft" },
                 { name: "Iarde", symbol: "yd" },
                 { name: "Miglia", symbol: "mi" },
-                { name: "Banane", symbol: "🍌", special: true }
+                { name: "Banane", symbol: "🍌", special: true },
+                { name: "iPhone", symbol: "📱", special: true } // Nuova unità
             ],
             weight: [
                 { name: "Milligrammi", symbol: "mg" },
@@ -1522,7 +1523,9 @@
                 { name: "Tonnellate", symbol: "t" },
                 { name: "Once", symbol: "oz" },
                 { name: "Libbre", symbol: "lb" },
-                { name: "Elefanti", symbol: "🐘", special: true }
+                { name: "Elefanti", symbol: "🐘", special: true },
+                { name: "Formiche", symbol: "🐜", special: true }, // Nuova unità
+                { name: "Terre", symbol: "🌍", special: true } // Nuova unità
             ],
             volume: [
                 { name: "Millilitri", symbol: "ml" },
@@ -1531,7 +1534,8 @@
                 { name: "Pollici cubi", symbol: "in³" },
                 { name: "Piedi cubi", symbol: "ft³" },
                 { name: "Galloni USA", symbol: "gal" },
-                { name: "Tazze di tè", symbol: "🍵", special: true }
+                { name: "Tazze di tè", symbol: "🍵", special: true },
+                { name: "Piscine Olimpiche", symbol: "🌊", special: true } // Nuova unità
             ],
             time: [
                 { name: "Secondi", symbol: "s" },
@@ -1549,7 +1553,21 @@
                 { name: "Miglia all'ora", symbol: "mph" },
                 { name: "Nodi", symbol: "kn" },
                 { name: "Piedi al secondo", symbol: "ft/s" },
-                { name: "Lumache al minuto", symbol: "🐌", special: true }
+                { name: "Lumache al minuto", symbol: "🐌", special: true },
+                { name: "Bradipi", symbol: "🦥", special: true }, // Nuova unità
+                { name: "Razzi SpaceX", symbol: "🚀", special: true } // Nuova unità
+            ],
+            // Nuova categoria: area
+            area: [
+                { name: "Metri quadrati", symbol: "m²" },
+                { name: "Campi da calcio", symbol: "⚽", special: true }, // Nuova unità
+                { name: "Pizze", symbol: "🍕", special: true } // Nuova unità
+            ],
+            // Nuova categoria: energia
+            energy: [
+                { name: "Joule", symbol: "J" },
+                { name: "Calorie", symbol: "cal" },
+                { name: "Caffè", symbol: "☕", special: true } // Nuova unità
             ]
         };
 
@@ -1564,7 +1582,8 @@
                 ft: { base: 0.3048, name: "Piedi" },
                 yd: { base: 0.9144, name: "Iarde" },
                 mi: { base: 1609.344, name: "Miglia" },
-                "🍌": { base: 0.2, name: "Banane" }
+                "🍌": { base: 0.2, name: "Banane" },
+                "📱": { base: 0.15, name: "iPhone" } // Nuova unità
             },
             weight: {
                 mg: { base: 0.000001, name: "Milligrammi" },
@@ -1573,7 +1592,9 @@
                 t: { base: 1000, name: "Tonnellate" },
                 oz: { base: 0.0283495, name: "Once" },
                 lb: { base: 0.453592, name: "Libbre" },
-                "🐘": { base: 6000, name: "Elefanti" }
+                "🐘": { base: 6000, name: "Elefanti" },
+                "🐜": { base: 0.000005, name: "Formiche" }, // Nuova unità (5mg)
+                "🌍": { base: 5.972e24, name: "Terre" } // Nuova unità (massa della Terra)
             },
             volume: {
                 ml: { base: 0.001, name: "Millilitri" },
@@ -1582,7 +1603,8 @@
                 "in³": { base: 0.0163871, name: "Pollici cubi" },
                 "ft³": { base: 28.3168, name: "Piedi cubi" },
                 gal: { base: 3.78541, name: "Galloni USA" },
-                "🍵": { base: 0.25, name: "Tazze di tè" }
+                "🍵": { base: 0.25, name: "Tazze di tè" },
+                "🌊": { base: 2500000, name: "Piscine Olimpiche" } // Nuova unità (2.5 milioni di litri)
             },
             time: {
                 s: { base: 1, name: "Secondi" },
@@ -1600,7 +1622,21 @@
                 "mph": { base: 1.60934, name: "Miglia all'ora" },
                 "kn": { base: 1.852, name: "Nodi" },
                 "ft/s": { base: 1.09728, name: "Piedi al secondo" },
-                "🐌": { base: 0.05, name: "Lumache al minuto" } // Easter egg unit - MODIFICATO
+                "🐌": { base: 0.05, name: "Lumache al minuto" }, // Easter egg unit
+                "🦥": { base: 0.27, name: "Bradipi" }, // MODIFICATO: 0.27 km/h
+                "🚀": { base: 26500, name: "Razzi SpaceX" } // MODIFICATO: 26500 km/h
+            },
+            // Nuova categoria: area
+            area: {
+                "m²": { base: 1, name: "Metri quadrati" },
+                "⚽": { base: 7140, name: "Campi da calcio" }, // Nuova unità (dimensione campo calcio)
+                "🍕": { base: 0.25, name: "Pizze" } // Nuova unità (diametro 35cm)
+            },
+            // Nuova categoria: energia
+            energy: {
+                "J": { base: 1, name: "Joule" },
+                "cal": { base: 4.184, name: "Calorie" },
+                "☕": { base: 334720, name: "Caffè" } // Nuova unità (80 kcal ≈ 334.72 kJ)
             }
         };
 
@@ -1755,6 +1791,12 @@
             } else if (category === 'speed') {
                 fromUnitSelect.value = 'km/h';
                 toUnitSelect.value = 'm/s';
+            } else if (category === 'area') {
+                fromUnitSelect.value = 'm²';
+                toUnitSelect.value = '⚽';
+            } else if (category === 'energy') {
+                fromUnitSelect.value = 'J';
+                toUnitSelect.value = '☕';
             }
         }
 
@@ -2222,7 +2264,9 @@
                 case 'weight':
                 case 'volume':
                 case 'time':
-                case 'speed': // Nuova categoria velocità
+                case 'speed':
+                case 'area':   // Nuova categoria
+                case 'energy': // Nuova categoria
                     result = convertWithFactors(value, fromUnit, toUnit, category);
                     conversionRate = calculateConversionRate(fromUnit, toUnit, category);
                     break;
@@ -2283,10 +2327,25 @@
         function displayResult(inputValue, fromUnit, result, toUnit, conversionRate) {
             resultValue.innerHTML = `${result.toLocaleString('it-IT', { maximumFractionDigits: 4 })} ${toUnit}`;
             
-            // Easter Egg speciale per la velocità in lumache
-            if (toUnit === '🐌') {
-                resultValue.innerHTML = `${result.toFixed(4)} 🐌`;
-                specialMessageContainer.innerHTML = '<div class="special-message" style="background: #e6faf4; border-color: #06d6a0;"><div class="special-message-content" style="color: #06d6a0;">Questa è la tua velocità in lumache al minuto! 🐌</div></div>';
+            // Messaggi speciali per unità divertenti
+            const specialMessages = {
+                '🐘': `Sembri un elefante! 🐘`,
+                '🐌': `Questa è la tua velocità in lumache al minuto! 🐌`,
+                '🦥': `Sei più lento di un bradipo! 🦥`,
+                '🚀': `Stai viaggiando alla velocità di un razzo! 🚀`,
+                '📱': `Misurato in iPhone! 📱`,
+                '🌊': `Abbastanza acqua per una piscina olimpica! 🌊`,
+                '⚽': `Grande come un campo da calcio! ⚽`,
+                '🍕': `Abbastanza spazio per una pizza! 🍕`,
+                '☕': `Energia equivalente a tanti caffè! ☕`,
+                '🐜': `Leggero come una formica! 🐜`,
+                '🌍': `Pesante come un pianeta! 🌍`
+            };
+            
+            if (specialMessages[toUnit]) {
+                specialMessageContainer.innerHTML = `<div class="special-message" style="background: #e6faf4; border-color: #06d6a0;">
+                    <div class="special-message-content" style="color: #06d6a0;">${specialMessages[toUnit]}</div>
+                </div>`;
             }
             
             if (conversionRate !== null && conversionRate !== 1) {
