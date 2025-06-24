@@ -26,7 +26,6 @@ Completa di *Easter Eggs* segreti e **temi personalizzabili**!
 - Interfaccia intuitiva con selezione unità di misura  
 - Funzione *scambia unità* con pulsante rotante  
 - Cronologia delle conversioni recenti  
-- Tassi di cambio visualizzati in tempo reale  
 
 ---
 
